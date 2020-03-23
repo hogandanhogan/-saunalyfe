@@ -2,14 +2,20 @@
 //  ExtensionDelegate.swift
 //  #saunalyfe WatchKit Extension
 //
-//  Created by Dan Hogan on 3/21/20.
+//  Created by Dan Hogan on 3/22/20.
 //  Copyright © 2020 Dan Hogan. All rights reserved.
 //
 
 import WatchKit
 
+public let kWorkoutRecoveryNotificationKey = "WorkoutRecoveryNotificationKey"
+
 class ExtensionDelegate: NSObject, WKExtensionDelegate {
 
+    func handleActiveWorkoutRecovery() {
+        NotificationCenter.default.post(name: NSNotification.Name.init(rawValue: kWorkoutRecoveryNotificationKey), object: nil, userInfo: nil)
+    }
+    
     func applicationDidFinishLaunching() {
         // Perform any final initialization of your application.
     }
