@@ -15,6 +15,10 @@ class ViewController: UIViewController {
     
     let label = UILabel()
     
+    override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+        return [ .portrait ]
+    }
+    
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
     }
@@ -25,7 +29,7 @@ class ViewController: UIViewController {
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(handleBackgroundNotification(_:)),
-            name: UIScene.willDeactivateNotification, object: nil
+            name: UIScene.didEnterBackgroundNotification, object: nil
         )
         
         NotificationCenter.default.addObserver(

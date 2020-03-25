@@ -100,7 +100,7 @@ class InterfaceController: WKInterfaceController {
                 }
             }
             
-            startHeartRateQuery()
+            updateHeartRate()
         }
     }
 
@@ -126,37 +126,21 @@ class InterfaceController: WKInterfaceController {
         )
     }
     
-    private func process(_ samples: [HKQuantitySample], type: HKQuantityTypeIdentifier) {
-        if let sample = samples.last, timerRunning {
-            if type == .heartRate {
-                let rate = sample.quantity.doubleValue(for: HKUnit(from: "count/min"))
-                heartRateLabel.setText(String(Int(rate)))
+    private func updateHeartRate() {
+        if let builder = builder, timerRunning {
+            let quantityTypeIdentifier: HKQuantityTypeIdentifier = .heartRate
+            let statistics = builder.statistics(for: HKObjectType.quantityType(forIdentifier: quantityTypeIdentifier)!)
+            let heartRateUnit = HKUnit.count().unitDivided(by: HKUnit.minute())
+            let value = statistics?.mostRecentQuantity()?.doubleValue(for: heartRateUnit)
+            if let value = value {
+                heartRateLabel.setText("\(Int(round(value)))")
+            } else {
+                heartRateLabel.setText("--")
             }
         }
     }
     
-    private func startHeartRateQuery() {
-        let quantityTypeIdentifier: HKQuantityTypeIdentifier = .heartRate
-        let devicePredicate = HKQuery.predicateForObjects(from: [HKDevice.local()])
-        let updateHandler: (HKAnchoredObjectQuery, [HKSample]?, [HKDeletedObject]?, HKQueryAnchor?, Error?) -> Void = { query, samples, deletedObjects, queryAnchor, error in
-            guard let samples = samples as? [HKQuantitySample] else { return }
-            self.process(samples, type: quantityTypeIdentifier)
-        }
-        
-        let query = HKAnchoredObjectQuery(
-            type: HKObjectType.quantityType(forIdentifier: quantityTypeIdentifier)!,
-            predicate: devicePredicate,
-            anchor: nil,
-            limit: HKObjectQueryNoLimit,
-            resultsHandler: updateHandler
-        )
-        
-        query.updateHandler = updateHandler
-        
-        healthStore.execute(query)
-    }
-    
-    //MARK:- WKExtensionDelegate
+    //MARK:- WKExtensionDelegate Notification
     
     @objc func handleWorkoutRecoveryNotification(_ notification: Notification) {
         healthStore.recoverActiveWorkoutSession { session, error in
