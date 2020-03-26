@@ -19,10 +19,13 @@
 		6E1458F92426E829002D5D42 /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6E1458F72426E829002D5D42 /* Interface.storyboard */; };
 		6E1458FB2426E829002D5D42 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6E1458FA2426E829002D5D42 /* Assets.xcassets */; };
 		6E1459022426E829002D5D42 /* #saunalyfe WatchKit Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 6E1459012426E829002D5D42 /* #saunalyfe WatchKit Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		6E1459072426E829002D5D42 /* InterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E1459062426E829002D5D42 /* InterfaceController.swift */; };
 		6E14590B2426E829002D5D42 /* NotificationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E14590A2426E829002D5D42 /* NotificationController.swift */; };
 		6E14590D2426E82A002D5D42 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6E14590C2426E82A002D5D42 /* Assets.xcassets */; };
 		6E2D705024283A75005FBAF2 /* ExtensionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E2D704F24283A75005FBAF2 /* ExtensionDelegate.swift */; };
+		6E6B1F10242BF6B500680EAA /* WorkoutsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E6B1F0F242BF6B500680EAA /* WorkoutsViewController.swift */; };
+		6E6B1F13242BFA1900680EAA /* InterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E1459062426E829002D5D42 /* InterfaceController.swift */; };
+		6E6B1F15242BFA3700680EAA /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E6B1F14242BFA3700680EAA /* Extensions.swift */; };
+		6E6B1F16242BFA5200680EAA /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E6B1F14242BFA3700680EAA /* Extensions.swift */; };
 		6EC117FF2427BACB00A22360 /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6EC117FE2427BACB00A22360 /* HealthKit.framework */; };
 		6EC118022427BF0500A22360 /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6EC118012427BF0500A22360 /* HealthKit.framework */; };
 /* End PBXBuildFile section */
@@ -109,6 +112,8 @@
 		6E14590E2426E82A002D5D42 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6E14590F2426E82A002D5D42 /* PushNotificationPayload.apns */ = {isa = PBXFileReference; lastKnownFileType = text; path = PushNotificationPayload.apns; sourceTree = "<group>"; };
 		6E2D704F24283A75005FBAF2 /* ExtensionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionDelegate.swift; sourceTree = "<group>"; };
+		6E6B1F0F242BF6B500680EAA /* WorkoutsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutsViewController.swift; sourceTree = "<group>"; };
+		6E6B1F14242BFA3700680EAA /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		6EC117FC2427BACB00A22360 /* #saunalyfe.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "#saunalyfe.entitlements"; sourceTree = "<group>"; };
 		6EC117FE2427BACB00A22360 /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
 		6EC118002427BF0400A22360 /* #saunalyfe WatchKit Extension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "#saunalyfe WatchKit Extension.entitlements"; sourceTree = "<group>"; };
@@ -182,6 +187,8 @@
 				6E1458CD2426E828002D5D42 /* SceneDelegate.swift */,
 				6E1458CF2426E828002D5D42 /* ViewController.swift */,
 				6E1458D12426E828002D5D42 /* Main.storyboard */,
+				6E6B1F14242BFA3700680EAA /* Extensions.swift */,
+				6E6B1F0F242BF6B500680EAA /* WorkoutsViewController.swift */,
 				6E1458D42426E829002D5D42 /* Assets.xcassets */,
 				6E1458D62426E829002D5D42 /* LaunchScreen.storyboard */,
 				6E1458D92426E829002D5D42 /* Info.plist */,
@@ -432,6 +439,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6E6B1F15242BFA3700680EAA /* Extensions.swift in Sources */,
+				6E6B1F10242BF6B500680EAA /* WorkoutsViewController.swift in Sources */,
 				6E1458D02426E828002D5D42 /* ViewController.swift in Sources */,
 				6E1458CC2426E828002D5D42 /* AppDelegate.swift in Sources */,
 				6E1458CE2426E828002D5D42 /* SceneDelegate.swift in Sources */,
@@ -459,8 +468,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				6E14590B2426E829002D5D42 /* NotificationController.swift in Sources */,
-				6E1459072426E829002D5D42 /* InterfaceController.swift in Sources */,
+				6E6B1F13242BFA1900680EAA /* InterfaceController.swift in Sources */,
 				6E2D705024283A75005FBAF2 /* ExtensionDelegate.swift in Sources */,
+				6E6B1F16242BFA5200680EAA /* Extensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

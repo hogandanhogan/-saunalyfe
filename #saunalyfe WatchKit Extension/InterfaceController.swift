@@ -82,23 +82,8 @@ class InterfaceController: WKInterfaceController {
     
     @objc func handleTimerFired(_ timer: Timer) {
         if let start = session?.startDate?.timeIntervalSince1970 {
-            let time = timer.fireDate.timeIntervalSince1970 - start
-            let hours = Int(time) / 3600
-            let minutes = Int(time) / 60 % 60
-            let seconds = Int(time) % 60
-            if hours > 0 {
-                if minutes > 9 {
-                    timeLabel.setText(String(format: "%02i:%02i:%02i", hours, minutes, seconds))
-                } else {
-                    timeLabel.setText(String(format: "%01i:%02i:%02i", hours, minutes, seconds))
-                }
-            } else {
-                if minutes > 9 {
-                    timeLabel.setText(String(format: "%02i:%02i", minutes, seconds))
-                } else {
-                    timeLabel.setText(String(format: "%01i:%02i", minutes, seconds))
-                }
-            }
+            let text = (timer.fireDate.timeIntervalSince1970 - start).formattedTime
+            timeLabel.setText(text)
             
             updateHeartRate()
         }
@@ -128,10 +113,8 @@ class InterfaceController: WKInterfaceController {
     
     private func updateHeartRate() {
         if let builder = builder, timerRunning {
-            let quantityTypeIdentifier: HKQuantityTypeIdentifier = .heartRate
-            let statistics = builder.statistics(for: HKObjectType.quantityType(forIdentifier: quantityTypeIdentifier)!)
-            let heartRateUnit = HKUnit.count().unitDivided(by: HKUnit.minute())
-            let value = statistics?.mostRecentQuantity()?.doubleValue(for: heartRateUnit)
+            let statistics = builder.statistics(for: kHeartRateQuantityType)
+            let value = statistics?.mostRecentQuantity()?.doubleValue(for: kHeartRateUnit)
             if let value = value {
                 heartRateLabel.setText("\(Int(round(value)))")
             } else {
