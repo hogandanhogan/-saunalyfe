@@ -8,6 +8,7 @@
 
 import Foundation
 import HealthKit
+
 let kHeartRateUnit = HKUnit.count().unitDivided(by: HKUnit.minute())
 
 public let kHeartRateQuantityTypeIdentifier: HKQuantityTypeIdentifier = .heartRate
@@ -19,7 +20,7 @@ extension TimeInterval {
         get {
             let dateFormatter = Foundation.DateFormatter()
             let date = Date(timeIntervalSince1970: self)
-            dateFormatter.dateFormat = "M.dd.yy, h:mma"
+            dateFormatter.dateFormat = "M.dd, h:mma"
             return dateFormatter.string(from: date).lowercased()
         }
     }
@@ -52,20 +53,4 @@ extension TimeInterval {
         }
     }
     
-}
-
-extension Date {
-    
-    func day() -> Int {
-        let dateFormatter = Foundation.DateFormatter()
-        dateFormatter.dateFormat = "dd"
-        return Int(dateFormatter.string(from: self))!
-    }
-    
-    func year() -> Int {
-        let dateFormatter = Foundation.DateFormatter()
-        dateFormatter.dateFormat = "yyyy"
-        return Int(dateFormatter.string(from: self))!
-    }
-
 }

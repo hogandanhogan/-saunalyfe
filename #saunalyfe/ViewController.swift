@@ -72,13 +72,13 @@ class ViewController: UIViewController {
         
         view.addSubview({
             workoutsButton.setTitleColor(UIColor.white, for: .normal)
-            workoutsButton.backgroundColor = UIColor(red: 236.0/255.0, green: 77.0/255.0, blue: 92.0/255.0, alpha: 1.0)
+            //workoutsButton.backgroundColor = UIColor(red: 236.0/255.0, green: 77.0/255.0, blue: 92.0/255.0, alpha: 1.0)
             workoutsButton.titleLabel?.font = UIFont.systemFont(ofSize: 17.0, weight: .semibold)
             workoutsButton.layer.cornerRadius = kWorkoutsButtonHeight/2.0
             workoutsButton.clipsToBounds = true
             workoutsButton.alpha = 0.0
             workoutsButton.addTarget(self, action: #selector(handleWorkoutsButtonSelected(_:)), for: .touchUpInside)
-            
+                        
             return workoutsButton
             }()
         )
@@ -89,6 +89,13 @@ class ViewController: UIViewController {
                     self.workoutsButton.setTitle("\(self.workouts.count) Sessions", for: .normal)
                     self.workoutsButton.frame = CGRect(x: 0.0, y: self.view.frame.height - 100.0, width: self.workoutsButton.intrinsicContentSize.width + 50.0, height: kWorkoutsButtonHeight)
                     self.workoutsButton.center.x = self.view.center.x
+                    let wokroutButtonGradientLayer = CAGradientLayer()
+                    let bottomColor = UIColor(red: 236.0/255.0, green: 77.0/255.0, blue: 92.0/255.0, alpha: 1.0).cgColor
+                    let topColor = UIColor(red: 124.0/255.0, green: 44.0/255.0, blue: 116.0/255.0, alpha: 1.0).cgColor
+                    wokroutButtonGradientLayer.colors = [ topColor, bottomColor  ]
+                    wokroutButtonGradientLayer.frame = self.workoutsButton.bounds
+                    wokroutButtonGradientLayer.locations = [ 0.0, 1.0 ]
+                    self.workoutsButton.layer.insertSublayer(wokroutButtonGradientLayer, at: 0)
 
                     UIView.animate(withDuration: 0.5) {
                         self.workoutsButton.alpha = 1.0
@@ -181,7 +188,7 @@ extension UIView {
     func addGradientLayer() {
         let layer = CAGradientLayer()
         let topColor = UIColor(red: 0.0/255.0, green: 36.0/255.0, blue: 245.0/255.0, alpha: 1.0).cgColor
-        let bottomColor = UIColor(red: 140.0/255.0, green: 247.0/255.0, blue: 198.0/255.0, alpha: 1.0).cgColor
+        let bottomColor = UIColor(red: 140.0/255.0, green: 240.0/255.0, blue: 220.0/255.0, alpha: 1.0).cgColor
         layer.colors = [ topColor, bottomColor ]
         layer.locations = [ 0.0, 1.0 ]
         layer.frame = self.frame
