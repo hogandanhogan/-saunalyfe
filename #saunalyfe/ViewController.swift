@@ -9,14 +9,12 @@
 import UIKit
 import HealthKit
 
-private let kWorkoutsButtonHeight: CGFloat = 40.0
-
 class ViewController: UIViewController {
 
     let store = HKHealthStore()
     
     let label = UILabel()
-    let workoutsButton = UIButton()
+    let workoutsButton = RoundButton()
     
     var workouts = [ HKWorkout ]()
 
@@ -71,11 +69,6 @@ class ViewController: UIViewController {
         )
         
         view.addSubview({
-            workoutsButton.setTitleColor(UIColor.white, for: .normal)
-            //workoutsButton.backgroundColor = UIColor(red: 236.0/255.0, green: 77.0/255.0, blue: 92.0/255.0, alpha: 1.0)
-            workoutsButton.titleLabel?.font = UIFont.systemFont(ofSize: 17.0, weight: .semibold)
-            workoutsButton.layer.cornerRadius = kWorkoutsButtonHeight/2.0
-            workoutsButton.clipsToBounds = true
             workoutsButton.alpha = 0.0
             workoutsButton.addTarget(self, action: #selector(handleWorkoutsButtonSelected(_:)), for: .touchUpInside)
                         
@@ -87,15 +80,8 @@ class ViewController: UIViewController {
             if self.workouts.count > 0 {
                 DispatchQueue.main.asyncAfter(deadline: 0.5.dispatchTimeInSeconds) {
                     self.workoutsButton.setTitle("\(self.workouts.count) Sessions", for: .normal)
-                    self.workoutsButton.frame = CGRect(x: 0.0, y: self.view.frame.height - 100.0, width: self.workoutsButton.intrinsicContentSize.width + 50.0, height: kWorkoutsButtonHeight)
+                    self.workoutsButton.frame = CGRect(x: 0.0, y: self.view.frame.height - 100.0, width: self.workoutsButton.intrinsicContentSize.width + 50.0, height: kRoundButtonHeight)
                     self.workoutsButton.center.x = self.view.center.x
-                    let wokroutButtonGradientLayer = CAGradientLayer()
-                    let bottomColor = UIColor(red: 236.0/255.0, green: 77.0/255.0, blue: 92.0/255.0, alpha: 1.0).cgColor
-                    let topColor = UIColor(red: 124.0/255.0, green: 44.0/255.0, blue: 116.0/255.0, alpha: 1.0).cgColor
-                    wokroutButtonGradientLayer.colors = [ topColor, bottomColor  ]
-                    wokroutButtonGradientLayer.frame = self.workoutsButton.bounds
-                    wokroutButtonGradientLayer.locations = [ 0.0, 1.0 ]
-                    self.workoutsButton.layer.insertSublayer(wokroutButtonGradientLayer, at: 0)
 
                     UIView.animate(withDuration: 0.5) {
                         self.workoutsButton.alpha = 1.0
@@ -203,4 +189,23 @@ extension Double {
             return DispatchTime.now() + Double(Int64(self * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)
         }
     }
+}
+
+extension UIColor {
+    
+    func image(_ size: CGSize = CGSize(width: 1, height: 1)) -> UIImage {
+        UIGraphicsBeginImageContext(size)
+        let currentContext = UIGraphicsGetCurrentContext()
+        
+        let fillRect = CGRect(x: 0, y: 0, width: size.width, height: size.height)
+        currentContext?.setFillColor(self.cgColor)
+        
+        currentContext?.fill(fillRect)
+        
+        let result = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        
+        return result!
+    }
+    
 }

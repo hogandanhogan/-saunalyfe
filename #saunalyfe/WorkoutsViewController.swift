@@ -16,7 +16,7 @@ class WorkoutsViewController: UIViewController, UITableViewDataSource, UITableVi
     let healthStore = HKHealthStore()
     
     let tableView = UITableView()
-    let workouts: [ HKWorkout ]
+    var workouts: [ HKWorkout ]
     var heartRateDict = [ Int : Int ]()
 
     init(workouts theWorkouts: [ HKWorkout]) {
@@ -114,5 +114,53 @@ class WorkoutsViewController: UIViewController, UITableViewDataSource, UITableVi
         
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return UITableView.automaticDimension
+    }
+    
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let action = UIContextualAction(style: .normal, title: "Edit") { action, view, completion in
+            let vc = EditWorkoutViewController(workout: self.workouts[indexPath.row]) { minutes in
+                let workout = self.workouts[indexPath.row]
+                let end = workout.startDate.timeIntervalSince1970 + (Double(minutes) * 60.0)
+                self.edit(workout: workout, end: end)
+            }
+            
+            self.present(vc, animated: true, completion: nil)
+            completion(true)
+        }
+        
+        action.backgroundColor = kActionColor
+
+        return UISwipeActionsConfiguration(actions: [ action ])
+    }
+    
+    func edit(workout: HKWorkout, end: TimeInterval) {
+        let edit = HKWorkout(
+            activityType: workout.workoutActivityType,
+            start: workout.startDate,
+            end: Date(timeIntervalSince1970: end),
+            workoutEvents: workout.workoutEvents,
+            totalEnergyBurned: nil,
+            totalDistance: nil,
+            metadata: workout.metadata
+        )
+        
+        healthStore.save(edit) { success, error in
+            if error == nil {
+                self.healthStore.delete(workout) { finished, error in
+                    if error == nil {
+                        if let i = self.workouts.firstIndex(of: workout) {
+                            DispatchQueue.main.async {
+                                 self.workouts[i] = edit
+                                 self.tableView.reloadRows(at: [ IndexPath(item: i, section: 0) ], with: .automatic)
+                            }
+                        }
+                    } else {
+                        AlertControllerHandler.showError(presentingViewController: self, error: error)
+                    }
+                }
+            } else {
+                AlertControllerHandler.showError(presentingViewController: self, error: error)
+            }
+        }
     }
 }
