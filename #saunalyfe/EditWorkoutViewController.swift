@@ -47,8 +47,14 @@ class EditWorkoutViewController: UIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        view.backgroundColor = UIColor.black.withAlphaComponent(0.85)
-                
+        view.addSubview({
+            let blurView = UIVisualEffectView(effect: UIBlurEffect(style: .dark))
+            blurView.frame = view.frame
+            
+            return blurView
+            }()
+        )
+
         view.addSubview({
             gridView.frame = CGRect(x: 35.0, y: 60.0, width: view.frame.width - 50.0, height: 150.0)
         
@@ -59,8 +65,11 @@ class EditWorkoutViewController: UIViewController, UITextFieldDelegate {
         view.addSubview({
             textField.keyboardType = .numberPad
             textField.textAlignment = .center
-            textField.placeholder = "Change duration from start (min)"
-            textField.font = UIFont.systemFont(ofSize: 26.0, weight: .ultraLight)
+            let placeholder = NSAttributedString(string: "Change duration from start (min)", attributes: [NSAttributedString.Key.foregroundColor: UIColor.white.withAlphaComponent(0.6)])
+            textField.attributedPlaceholder = placeholder
+            textField.tintColor = UIColor.white
+            textField.textColor = UIColor.white
+            textField.font = UIFont.systemFont(ofSize: 26.0, weight: .thin)
             textField.addTarget(self, action: #selector(handleFieldEdtingChanged(_:)), for: .editingChanged)
             textField.frame = CGRect(
                 x: 0.0,

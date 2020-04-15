@@ -13,6 +13,13 @@ public let kWorkoutRecoveryNotificationKey = "WorkoutRecoveryNotificationKey"
 class ExtensionDelegate: NSObject, WKExtensionDelegate {
 
     func handleActiveWorkoutRecovery() {
+        WKInterfaceController.reloadRootPageControllers(
+            withNames: [ "WorkoutInterfaceController" ],
+            contexts: [],
+            orientation: WKPageOrientation.vertical,
+            pageIndex: 0
+        )
+
         NotificationCenter.default.post(name: NSNotification.Name.init(rawValue: kWorkoutRecoveryNotificationKey), object: nil, userInfo: nil)
     }
     

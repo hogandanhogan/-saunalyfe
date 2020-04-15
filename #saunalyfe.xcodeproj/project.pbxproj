@@ -23,7 +23,7 @@
 		6E14590D2426E82A002D5D42 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6E14590C2426E82A002D5D42 /* Assets.xcassets */; };
 		6E2D705024283A75005FBAF2 /* ExtensionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E2D704F24283A75005FBAF2 /* ExtensionDelegate.swift */; };
 		6E6B1F10242BF6B500680EAA /* WorkoutsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E6B1F0F242BF6B500680EAA /* WorkoutsViewController.swift */; };
-		6E6B1F13242BFA1900680EAA /* InterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E1459062426E829002D5D42 /* InterfaceController.swift */; };
+		6E6B1F13242BFA1900680EAA /* WorkoutInterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E1459062426E829002D5D42 /* WorkoutInterfaceController.swift */; };
 		6E6B1F15242BFA3700680EAA /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E6B1F14242BFA3700680EAA /* Extensions.swift */; };
 		6E6B1F16242BFA5200680EAA /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E6B1F14242BFA3700680EAA /* Extensions.swift */; };
 		6E8D15402439051C0078079C /* AlertControllerHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E8D153F2439051C0078079C /* AlertControllerHandler.swift */; };
@@ -31,6 +31,7 @@
 		6E8D154424391E360078079C /* RoundButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E8D154324391E360078079C /* RoundButton.swift */; };
 		6EC117FF2427BACB00A22360 /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6EC117FE2427BACB00A22360 /* HealthKit.framework */; };
 		6EC118022427BF0500A22360 /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6EC118012427BF0500A22360 /* HealthKit.framework */; };
+		6EFE4BCD24469B5C00878636 /* LandingInterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EFE4BCC24469B5C00878636 /* LandingInterfaceController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -109,7 +110,7 @@
 		6E1458FA2426E829002D5D42 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		6E1458FC2426E829002D5D42 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6E1459012426E829002D5D42 /* #saunalyfe WatchKit Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "#saunalyfe WatchKit Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
-		6E1459062426E829002D5D42 /* InterfaceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterfaceController.swift; sourceTree = "<group>"; };
+		6E1459062426E829002D5D42 /* WorkoutInterfaceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutInterfaceController.swift; sourceTree = "<group>"; };
 		6E14590A2426E829002D5D42 /* NotificationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationController.swift; sourceTree = "<group>"; };
 		6E14590C2426E82A002D5D42 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		6E14590E2426E82A002D5D42 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -124,6 +125,7 @@
 		6EC117FE2427BACB00A22360 /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
 		6EC118002427BF0400A22360 /* #saunalyfe WatchKit Extension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "#saunalyfe WatchKit Extension.entitlements"; sourceTree = "<group>"; };
 		6EC118012427BF0500A22360 /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = Platforms/WatchOS.platform/Developer/SDKs/WatchOS6.1.sdk/System/Library/Frameworks/HealthKit.framework; sourceTree = DEVELOPER_DIR; };
+		6EFE4BCC24469B5C00878636 /* LandingInterfaceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LandingInterfaceController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -237,7 +239,8 @@
 			isa = PBXGroup;
 			children = (
 				6EC118002427BF0400A22360 /* #saunalyfe WatchKit Extension.entitlements */,
-				6E1459062426E829002D5D42 /* InterfaceController.swift */,
+				6E1459062426E829002D5D42 /* WorkoutInterfaceController.swift */,
+				6EFE4BCC24469B5C00878636 /* LandingInterfaceController.swift */,
 				6E14590A2426E829002D5D42 /* NotificationController.swift */,
 				6E14590C2426E82A002D5D42 /* Assets.xcassets */,
 				6E2D704F24283A75005FBAF2 /* ExtensionDelegate.swift */,
@@ -480,8 +483,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				6E14590B2426E829002D5D42 /* NotificationController.swift in Sources */,
-				6E6B1F13242BFA1900680EAA /* InterfaceController.swift in Sources */,
+				6E6B1F13242BFA1900680EAA /* WorkoutInterfaceController.swift in Sources */,
 				6E2D705024283A75005FBAF2 /* ExtensionDelegate.swift in Sources */,
+				6EFE4BCD24469B5C00878636 /* LandingInterfaceController.swift in Sources */,
 				6E6B1F16242BFA5200680EAA /* Extensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

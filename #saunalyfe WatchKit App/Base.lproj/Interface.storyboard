@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="15705" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="AgC-eL-Hgc">
+<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="16096" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="ndV-ru-nTH">
     <device id="watch40"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="15501"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16086"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="16012"/>
     </dependencies>
     <scenes>
-        <!--Interface Controller-->
+        <!--WorkoutInterfaceController-->
         <scene sceneID="aou-V4-d1y">
             <objects>
-                <controller fullBounds="YES" id="AgC-eL-Hgc" customClass="InterfaceController" customModule="_saunalyfe_WatchKit_App" customModuleProvider="target">
+                <controller identifier="WorkoutInterfaceController" fullBounds="YES" id="AgC-eL-Hgc" customClass="WorkoutInterfaceController" customModule="_saunalyfe_WatchKit_Extension">
                     <items>
                         <imageView width="76" height="63" alignment="center" verticalAlignment="bottom" image="appstore" contentMode="scaleAspectFit" id="I1U-Xg-vry"/>
                         <group width="136" alignment="center" verticalAlignment="bottom" spacing="6" id="kKr-Mz-oDf">
@@ -32,20 +32,27 @@
                         </group>
                         <group width="1" alignment="center" verticalAlignment="bottom" id="92J-eC-UHN">
                             <items>
-                                <button width="136" alignment="center" title="Start" id="B8t-Xs-zwK">
+                                <button width="69" alignment="left" title="Done" id="B8t-Xs-zwK">
                                     <color key="backgroundColor" red="1" green="0.22873948660000001" blue="0.34211654559999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                    <fontDescription key="font" type="system" weight="medium" pointSize="19"/>
+                                    <fontDescription key="font" type="system" weight="semibold" pointSize="14"/>
                                     <connections>
-                                        <action selector="handleBottomButonSelected" destination="AgC-eL-Hgc" id="fID-PW-0tw"/>
+                                        <action selector="handleDoneButtonSelected" destination="AgC-eL-Hgc" id="l4L-xL-rFo"/>
+                                    </connections>
+                                </button>
+                                <button width="69" alignment="right" title="Unlock" id="wjp-hf-Air">
+                                    <fontDescription key="font" type="system" weight="semibold" pointSize="14"/>
+                                    <connections>
+                                        <action selector="handleLockButtonSelected" destination="AgC-eL-Hgc" id="XX2-Rq-ZNu"/>
                                     </connections>
                                 </button>
                             </items>
-                            <edgeInsets key="margins" left="0.0" right="0.0" top="0.0" bottom="2"/>
+                            <edgeInsets key="margins" left="9" right="9" top="0.0" bottom="2"/>
                         </group>
                     </items>
                     <connections>
-                        <outlet property="bottomButton" destination="B8t-Xs-zwK" id="PqT-Bn-ifG"/>
+                        <outlet property="doneButton" destination="B8t-Xs-zwK" id="wkH-gD-QGl"/>
                         <outlet property="heartRateLabel" destination="Mqz-fg-Mi2" id="cf9-qJ-7cW"/>
+                        <outlet property="lockButton" destination="wjp-hf-Air" id="RYx-eg-Wwz"/>
                         <outlet property="timeLabel" destination="g39-9f-mks" id="12N-DB-nph"/>
                     </connections>
                 </controller>
@@ -81,7 +88,33 @@
             <objects>
                 <controller id="eXb-UN-Cd0" customClass="NotificationController" customModule="_saunalyfe_WatchKit_App" customModuleProvider="target"/>
             </objects>
-            <point key="canvasLocation" x="468" y="345"/>
+            <point key="canvasLocation" x="220" y="966"/>
+        </scene>
+        <!--LandingInterfaceController-->
+        <scene sceneID="ACd-Ya-t0O">
+            <objects>
+                <controller identifier="LandingInterfaceController" id="ndV-ru-nTH" customClass="LandingInterfaceController" customModule="_saunalyfe_WatchKit_Extension">
+                    <items>
+                        <imageView width="84" height="66" alignment="center" image="appstore" contentMode="scaleAspectFit" id="jNT-2P-ust"/>
+                        <group width="1" alignment="left" verticalAlignment="bottom" id="5VA-n5-Ets">
+                            <items>
+                                <button width="136" alignment="center" title="Start" id="Gc0-az-A0M">
+                                    <color key="backgroundColor" red="1" green="0.22873948660000001" blue="0.34211654559999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <fontDescription key="font" type="system" weight="medium" pointSize="19"/>
+                                    <connections>
+                                        <action selector="handleStartButtonSelected" destination="ndV-ru-nTH" id="dXb-ef-lqB"/>
+                                    </connections>
+                                </button>
+                            </items>
+                            <edgeInsets key="margins" left="0.0" right="0.0" top="0.0" bottom="15"/>
+                        </group>
+                    </items>
+                    <connections>
+                        <outlet property="startButton" destination="Gc0-az-A0M" id="PNA-c1-Y98"/>
+                    </connections>
+                </controller>
+            </objects>
+            <point key="canvasLocation" x="0.83950617283950624" y="270.53299492385787"/>
         </scene>
     </scenes>
     <resources>
