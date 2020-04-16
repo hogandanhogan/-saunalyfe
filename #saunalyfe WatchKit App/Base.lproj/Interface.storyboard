@@ -32,21 +32,21 @@
                         </group>
                         <group width="1" alignment="center" verticalAlignment="bottom" id="92J-eC-UHN">
                             <items>
-                                <button width="69" alignment="left" title="Done" id="B8t-Xs-zwK">
+                                <button width="67" alignment="left" title="Done" id="B8t-Xs-zwK">
                                     <color key="backgroundColor" red="1" green="0.22873948660000001" blue="0.34211654559999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <fontDescription key="font" type="system" weight="semibold" pointSize="14"/>
                                     <connections>
                                         <action selector="handleDoneButtonSelected" destination="AgC-eL-Hgc" id="l4L-xL-rFo"/>
                                     </connections>
                                 </button>
-                                <button width="69" alignment="right" title="Unlock" id="wjp-hf-Air">
+                                <button width="67" alignment="right" title="Unlock" id="wjp-hf-Air">
                                     <fontDescription key="font" type="system" weight="semibold" pointSize="14"/>
                                     <connections>
                                         <action selector="handleLockButtonSelected" destination="AgC-eL-Hgc" id="XX2-Rq-ZNu"/>
                                     </connections>
                                 </button>
                             </items>
-                            <edgeInsets key="margins" left="9" right="9" top="0.0" bottom="2"/>
+                            <edgeInsets key="margins" left="11" right="11" top="0.0" bottom="2"/>
                         </group>
                     </items>
                     <connections>

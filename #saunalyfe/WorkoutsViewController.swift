@@ -30,8 +30,14 @@ class WorkoutsViewController: UIViewController, UITableViewDataSource, UITableVi
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        view.addGradientLayer()
+                
+        view.addSubview({
+            let blurView = UIVisualEffectView(effect: UIBlurEffect(style: .dark))
+            blurView.frame = view.frame
+            
+            return blurView
+            }()
+        )
 
         view.addSubview({
             tableView.contentInset.top = 40.0

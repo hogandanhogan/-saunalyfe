@@ -99,7 +99,7 @@ class EditWorkoutViewController: UIViewController, UITextFieldDelegate {
         )
 
         view.addSubview({
-            cancelButton.titleLabel?.font = UIFont.systemFont(ofSize: 16.0, weight: .regular)
+            cancelButton.titleLabel?.font = UIFont.systemFont(ofSize: 17.0, weight: .regular)
             cancelButton.setTitle("Cancel", for: .normal)
             cancelButton.setTitleColor(UIColor.white, for: .normal)
             cancelButton.addTarget(self, action: #selector(handleCancelButtonSelected(_:)), for: .touchUpInside)
