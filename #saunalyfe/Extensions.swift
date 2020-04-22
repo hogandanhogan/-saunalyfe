@@ -14,6 +14,31 @@ let kHeartRateUnit = HKUnit.count().unitDivided(by: HKUnit.minute())
 public let kHeartRateQuantityTypeIdentifier: HKQuantityTypeIdentifier = .heartRate
 public let kHeartRateQuantityType = HKObjectType.quantityType(forIdentifier: kHeartRateQuantityTypeIdentifier)!
 
+extension HKWorkout {
+    
+    func averageHeartRate(healthStore: HKHealthStore, handler: @escaping ((Int?) -> ())) {
+        let predicate: NSPredicate? = HKQuery.predicateForSamples(
+            withStart: startDate,
+            end: endDate,
+            options: HKQueryOptions.strictEndDate
+        )
+
+        let query = HKStatisticsQuery(
+            quantityType: kHeartRateQuantityType,
+            quantitySamplePredicate: predicate,
+            options: .discreteAverage) { query, statistics, error in
+                if let quantity = statistics?.averageQuantity()?.doubleValue(for: kHeartRateUnit) {
+                    handler(Int(round(quantity)))
+                } else {
+                    handler(nil)
+                }
+
+        }
+        
+        healthStore.execute(query)
+    }
+}
+
 extension TimeInterval {
     
     var monthDayTime: String {

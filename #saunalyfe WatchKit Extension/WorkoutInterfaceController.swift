@@ -103,14 +103,15 @@ class WorkoutInterfaceController: WKInterfaceController {
                                 let end = workout.endDate.timeIntervalSince1970
                                 let duration = (end - start).formattedTime
 
-                                let avg = Int(self.heartReadings.reduce(0, +) / self.heartReadings.count)
-                                
-                                self.presentAlert(
-                                    withTitle: "Workout saved",
-                                    message: "\(avg) bpm, \(duration)",
-                                    preferredStyle: .alert,
-                                    actions: [ action ]
-                                )
+                                workout.averageHeartRate(healthStore: self.healthStore) { averageRate in
+                                    let rateString = averageRate == nil ? "" : ", \(averageRate!) bpm"
+                                    self.presentAlert(
+                                        withTitle: "Workout saved",
+                                        message: "\(duration)\(rateString)",
+                                        preferredStyle: .alert,
+                                        actions: [ action ]
+                                    )
+                                }
                             }
                         }
                     } else {

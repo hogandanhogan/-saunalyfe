@@ -92,27 +92,14 @@ class WorkoutsViewController: UIViewController, UITableViewDataSource, UITableVi
         if let bpm = heartRateDict[row] {
             cell.textLabel!.text! += ", \(bpm) bpm"
         } else {
-            let predicate: NSPredicate? = HKQuery.predicateForSamples(
-                withStart: workout.startDate,
-                end: workout.endDate,
-                options: HKQueryOptions.strictEndDate
-            )
-
-            let query = HKStatisticsQuery(
-                quantityType: kHeartRateQuantityType,
-                quantitySamplePredicate: predicate,
-                options: .discreteAverage) { query, statistics, error in
-                    if let quantity = statistics?.averageQuantity()?.doubleValue(for: kHeartRateUnit) {
-                        let heartRate = Int(round(quantity))
-                        self.heartRateDict[row] = heartRate
-                        DispatchQueue.main.async {
-                            tableView.reloadRows(at: [ indexPath ], with: .automatic)
-                        }
+            workout.averageHeartRate(healthStore: healthStore) { averageRate in
+                if let averageRate = averageRate {
+                    self.heartRateDict[row] = averageRate
+                    DispatchQueue.main.async {
+                        tableView.reloadRows(at: [ indexPath ], with: .automatic)
                     }
-
+                }
             }
-            
-            healthStore.execute(query)
         }
         
         return cell
