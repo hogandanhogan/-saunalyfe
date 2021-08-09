@@ -51,6 +51,21 @@ class WorkoutsViewController: UIViewController, UITableViewDataSource, UITableVi
             return tableView
             }()
         )
+        
+        for i in 0...workouts.count - 1 {
+            if heartRateDict[i] != nil {
+                continue
+            } else {
+                workouts[i].averageHeartRate(healthStore: healthStore) { averageRate in
+                    if let averageRate = averageRate {
+                        self.heartRateDict[i] = averageRate
+                        DispatchQueue.main.async {
+                            self.tableView.reloadRows(at: [ IndexPath(row: i, section: 0) ], with: .automatic)
+                        }
+                    }
+                }
+            }
+        }
     }
     
     //MARK:- Layout
@@ -125,6 +140,8 @@ class WorkoutsViewController: UIViewController, UITableViewDataSource, UITableVi
 
         return UISwipeActionsConfiguration(actions: [ action ])
     }
+    
+    //MARK:- Convenience
     
     func edit(workout: HKWorkout, end: TimeInterval) {
         let edit = HKWorkout(
