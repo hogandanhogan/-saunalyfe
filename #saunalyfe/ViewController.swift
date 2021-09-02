@@ -100,7 +100,22 @@ class ViewController: UIViewController {
     //MARK:- Action Handlers
     
     @objc func handleWorkoutsButtonSelected(_ sender: UIButton) {
-        present(WorkoutsViewController(workouts: workouts), animated: true, completion: nil)
+        var heartRateDict = [ Int : Int ]()
+
+        for i in 0...workouts.count - 1 {
+            workouts[i].averageHeartRate(healthStore: HKHealthStore()) { averageRate in
+                if let averageRate = averageRate {
+                    DispatchQueue.main.async {
+                        heartRateDict[i] = averageRate
+                    }
+                }
+            }
+        }
+
+        let vc = WorkoutsViewController(workouts: workouts)
+        vc.heartRateDict = heartRateDict
+
+        present(vc, animated: true, completion: nil)
     }
     
     //MARK:- Notification
