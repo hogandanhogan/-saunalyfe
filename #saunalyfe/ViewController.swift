@@ -9,10 +9,18 @@
 import UIKit
 import HealthKit
 
+private let kTopGradientColor = UIColor(red: 0.0/255.0, green: 36.0/255.0, blue: 245.0/255.0, alpha: 1.0)
+
 class ViewController: UIViewController {
 
     let store = HKHealthStore()
     
+    let loadingIndicator: ProgressView = {
+        let progress = ProgressView(colors: [ .white, kActionColor, kTopGradientColor ], lineWidth: 2.0)
+        progress.translatesAutoresizingMaskIntoConstraints = false
+        return progress
+    }()
+
     let label = UILabel()
     let workoutsButton = RoundButton()
     
@@ -69,6 +77,14 @@ class ViewController: UIViewController {
         )
         
         view.addSubview({
+            loadingIndicator.frame = CGRect(x: 0.0, y: view.frame.height - 185.0, width: 30.0, height: 30.0)
+            loadingIndicator.center.x = view.center.x
+
+            return loadingIndicator
+            }()
+        )
+
+        view.addSubview({
             workoutsButton.alpha = 0.0
             workoutsButton.addTarget(self, action: #selector(handleWorkoutsButtonSelected(_:)), for: .touchUpInside)
                         
@@ -82,7 +98,7 @@ class ViewController: UIViewController {
                     self.workoutsButton.setTitle("\(self.workouts.count) Sessions", for: .normal)
                     self.workoutsButton.frame = CGRect(x: 0.0, y: self.view.frame.height - 100.0, width: self.workoutsButton.intrinsicContentSize.width + 50.0, height: kRoundButtonHeight)
                     self.workoutsButton.center.x = self.view.center.x
-
+                    
                     UIView.animate(withDuration: 0.5) {
                         self.workoutsButton.alpha = 1.0
                     }
@@ -100,10 +116,25 @@ class ViewController: UIViewController {
     //MARK:- Action Handlers
     
     @objc func handleWorkoutsButtonSelected(_ sender: UIButton) {
-        var heartRateDict = [ Int : Int ]()
+        sender.isUserInteractionEnabled = false
+        loadingIndicator.isAnimating = true
+
+        var heartRateDict = [ Int : Int ]() {
+            didSet {
+                sender.isUserInteractionEnabled = true
+                loadingIndicator.isAnimating = false
+                
+                if heartRateDict.count == workouts.count {
+                    let vc = WorkoutsViewController(workouts: workouts)
+                    vc.heartRateDict = heartRateDict
+
+                    present(vc, animated: true, completion: nil)
+                }
+            }
+        }
 
         for i in 0...workouts.count - 1 {
-            workouts[i].averageHeartRate(healthStore: HKHealthStore()) { averageRate in
+            workouts[i].averageHeartRate(healthStore: store) { averageRate in
                 if let averageRate = averageRate {
                     DispatchQueue.main.async {
                         heartRateDict[i] = averageRate
@@ -111,11 +142,6 @@ class ViewController: UIViewController {
                 }
             }
         }
-
-        let vc = WorkoutsViewController(workouts: workouts)
-        vc.heartRateDict = heartRateDict
-
-        present(vc, animated: true, completion: nil)
     }
     
     //MARK:- Notification
@@ -153,6 +179,8 @@ class ViewController: UIViewController {
     //MARK:- Convenience
     
     func loadSaunaLyfeWorkouts(completion: @escaping (() -> ())) {
+        loadingIndicator.isAnimating = true
+        
         let workoutPredicate = HKQuery.predicateForWorkouts(with: .other)
         let sourcePredicate = HKQuery.predicateForObjects(from: .default())
         let compound = NSCompoundPredicate(andPredicateWithSubpredicates:
@@ -169,6 +197,8 @@ class ViewController: UIViewController {
             limit: 0,
             sortDescriptors: [ sortDescriptor ]) { query, samples, error in
                 DispatchQueue.main.async {
+                    self.loadingIndicator.isAnimating = false
+
                     guard let samples = samples as? [ HKWorkout ], error == nil else {
                         completion()
                         return
@@ -188,7 +218,7 @@ extension UIView {
     
     func addGradientLayer() {
         let layer = CAGradientLayer()
-        let topColor = UIColor(red: 0.0/255.0, green: 36.0/255.0, blue: 245.0/255.0, alpha: 1.0).cgColor
+        let topColor = kTopGradientColor.cgColor
         let bottomColor = UIColor(red: 140.0/255.0, green: 240.0/255.0, blue: 220.0/255.0, alpha: 1.0).cgColor
         layer.colors = [ topColor, bottomColor ]
         layer.locations = [ 0.0, 1.0 ]

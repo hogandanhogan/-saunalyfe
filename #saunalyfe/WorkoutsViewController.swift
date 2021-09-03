@@ -38,7 +38,7 @@ class WorkoutsViewController: UIViewController, UITableViewDataSource, UITableVi
             return blurView
             }()
         )
-
+        
         view.addSubview({
             tableView.contentInset.top = 40.0
             tableView.dataSource = self
@@ -88,7 +88,7 @@ class WorkoutsViewController: UIViewController, UITableViewDataSource, UITableVi
         let duration = end - start
         cell.textLabel?.text = duration.formattedTime
         cell.detailTextLabel?.text = start.monthDayTime + " - " + end.timeOnly
-
+        
         if let bpm = heartRateDict[row] {
             cell.textLabel!.text! += ", \(bpm) bpm"
         } else {
