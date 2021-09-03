@@ -14,6 +14,10 @@ class StrokeAnimation: CABasicAnimation {
         case start
         case end
     }
+    
+    override init() {
+        super.init()
+    }
 
     init(type: StrokeType, beginTime: Double = 0.0, fromValue: CGFloat, toValue: CGFloat, duration: Double) {
         super.init()

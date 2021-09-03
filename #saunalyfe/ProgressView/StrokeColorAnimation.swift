@@ -10,6 +10,10 @@ import UIKit
 
 class StrokeColorAnimation: CAKeyframeAnimation {
     
+    override init() {
+        super.init()
+    }
+    
     init(colors: [ CGColor ], duration: Double) {
         super.init()
         
