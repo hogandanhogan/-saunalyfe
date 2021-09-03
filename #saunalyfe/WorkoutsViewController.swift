@@ -15,11 +15,13 @@ class WorkoutsViewController: UIViewController, UITableViewDataSource, UITableVi
 
     let healthStore = HKHealthStore()
     
+    let closeButton = UIButton()
+    
     let tableView = UITableView()
     var workouts: [ HKWorkout ]
     var heartRateDict = [ Int : Int ]()
 
-    init(workouts theWorkouts: [ HKWorkout]) {
+    init(workouts theWorkouts: [ HKWorkout ]) {
         workouts = theWorkouts
         super.init(nibName: nil, bundle: nil)
     }
@@ -51,6 +53,27 @@ class WorkoutsViewController: UIViewController, UITableViewDataSource, UITableVi
             return tableView
             }()
         )
+        
+        view.addSubview({
+            closeButton.setBackgroundImage(kActionColor.image(), for: .normal)
+            closeButton.clipsToBounds = true
+            closeButton.layer.cornerRadius = 25.0
+            closeButton.frame = CGRect(x: 0.0, y: self.view.frame.height - 140.0, width: 50.0, height: 50.0)
+            closeButton.center.x = view.center.x
+            closeButton.addTarget(self, action: #selector(handleCloseButtonSelected(_:)), for: .touchUpInside)
+
+            closeButton.addSubview({
+                let imageView = UIImageView(image: UIImage(named: "xButton")!)
+                imageView.contentMode = .center
+                imageView.frame = CGRect(x: 0.0, y: 0.0, width: closeButton.frame.width, height: closeButton.frame.height)
+
+                return imageView
+                }()
+            )
+
+            return closeButton
+            }()
+        )
     }
     
     //MARK:- Layout
@@ -58,8 +81,15 @@ class WorkoutsViewController: UIViewController, UITableViewDataSource, UITableVi
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
-        tableView.contentInset.bottom = view.safeAreaInsets.bottom + 20.0
+        tableView.contentInset.bottom = view.safeAreaInsets.bottom + 80.0
     }
+    
+    //MARK:- Action Handlers
+    
+    @objc func handleCloseButtonSelected(_ sender: UIButton) {
+        dismiss(animated: true, completion: nil)
+    }
+
     
     //MARK:- Tableview
 
